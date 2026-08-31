@@ -45,12 +45,12 @@ app.listen(PORT, "0.0.0.0", () => {
 function createBot() {
   console.log(`[Bot] Connecting to ${SERVER_HOST}:${SERVER_PORT}...`);
 
-  const client = bedrock.createClient({
+    const client = bedrock.createClient({
     host: SERVER_HOST,
     port: SERVER_PORT,
     username: BOT_USERNAME,
     offline: true,
-    skipPing: false,
+    skipPing: true,
     version: false
   });
 
