@@ -51,7 +51,6 @@ function createBot() {
     username: BOT_USERNAME,
     offline: true,
     skipPing: false,
-    version: "1.26.44"
   });
 
   client.on("spawn", () => {
