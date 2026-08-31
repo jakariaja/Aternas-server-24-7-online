@@ -1,4 +1,3 @@
-"use strict";
 
 const bedrock = require("bedrock-protocol");
 const express = require("express");
@@ -38,7 +37,7 @@ app.get("/", (req, res) => {
   `);
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`[Server] Listening on port ${PORT}`);
 });
 
@@ -51,7 +50,8 @@ function createBot() {
     port: SERVER_PORT,
     username: BOT_USERNAME,
     offline: true,
-    skipPing: true
+    skipPing: false,
+    version: false
   });
 
   client.on("spawn", () => {
