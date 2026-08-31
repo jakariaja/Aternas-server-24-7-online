@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Host details for your server
-const SERVER_HOST = "Jakaria20038.aternos.me";
+const SERVER_HOST = "haddock.aternos.host";
 const SERVER_PORT = 56328;
 const BOT_USERNAME = "AFK_Bot";
 
