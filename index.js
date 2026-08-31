@@ -50,8 +50,8 @@ function createBot() {
     port: SERVER_PORT,
     username: BOT_USERNAME,
     offline: true,
-    skipPing: true,
-    version: "1.26.0"
+    skipPing: false,
+    version: "1.26.44"
   });
 
   client.on("spawn", () => {
