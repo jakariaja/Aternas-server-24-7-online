@@ -50,7 +50,7 @@ function createBot() {
     port: SERVER_PORT,
     username: BOT_USERNAME,
     offline: true,
-    skipPing: false,
+    skipPing: true,
   });
 
   client.on("spawn", () => {
