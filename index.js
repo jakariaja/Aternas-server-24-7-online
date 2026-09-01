@@ -55,7 +55,7 @@ function createBot() {
   client.on("spawn", () => {
     console.log("[Bot] Successfully connected and spawned in the world!");
 
-        // Lightweight Anti-AFK Ping
+    // Lightweight Anti-AFK Ping
     setInterval(() => {
       if (client) {
         client.queue("tick_sync", {
@@ -63,7 +63,8 @@ function createBot() {
           response_timestamp: 0n,
         });
       }
-    }, 60000); // Send ping every 60 seconds
+    }, 60000);
+  });
 
   // Auto-Respawn on Death
   client.on("death", () => {
@@ -75,8 +76,10 @@ function createBot() {
 
   // Log server chat without sending auto-replies
   client.on("text", (packet) => {
-  console.log(`[Chat Log] ${packet.source_name || "Server"}: ${packet.message}`);});
-  
+    console.log(`[Chat Log] ${packet.source_name || "Server"}: ${packet.message}`);
+    
+  });
+
   client.on("error", (err) => {
     console.error("[Bot Error]", err.message || err);
   });
@@ -85,6 +88,5 @@ function createBot() {
     console.log("[Bot] Disconnected. Reconnecting in 30 seconds...");
     setTimeout(createBot, 30000);
   });
-}
-
+} 
 createBot();
