@@ -62,6 +62,9 @@ function createBot() {
           type: "chat",
           needs_translation: false,
           source_name: client.username,
+          xuid: "",
+          platform_chat_id: "",
+          filtered_message: "",
           message: "Bot is keeping the server active!",
         });
       }
@@ -78,6 +81,9 @@ function createBot() {
 
   // Chat Commands & Railway Console Logging
   client.on("text", (packet) => {
+    // Ignore messages sent by the bot itself to prevent infinite loops
+    if (packet.source_name === client.username) return;
+
     console.log(`[Chat Log] ${packet.source_name || "Server"}: ${packet.message}`);
 
     if (packet.message === "!ping") {
@@ -85,6 +91,9 @@ function createBot() {
         type: "chat",
         needs_translation: false,
         source_name: client.username,
+        xuid: "",
+        platform_chat_id: "",
+        filtered_message: "",
         message: "Pong! Bot is active.",
       });
     }
