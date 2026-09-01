@@ -55,31 +55,6 @@ function createBot() {
   client.on("spawn", () => {
     console.log("[Bot] Successfully connected and spawned in the world!");
 
-    // Lightweight Anti-AFK Ping
-    setInterval(() => {
-      if (client) {
-        client.queue("tick_sync", {
-          request_timestamp: BigInt(Date.now()),
-          response_timestamp: 0n,
-        });
-      }
-    }, 60000);
-  });
-
-  // Auto-Respawn on Death
-  client.on("death", () => {
-    console.log("[Bot] Bot died! Attempting to respawn...");
-    client.queue("respawn", {
-      state: 0,
-    });
-  });
-
-  // Log server chat without sending auto-replies
-  client.on("text", (packet) => {
-    console.log(`[Chat Log] ${packet.source_name || "Server"}: ${packet.message}`);
-    
-  });
-
   client.on("error", (err) => {
     console.error("[Bot Error]", err.message || err);
   });
