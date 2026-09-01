@@ -1,16 +1,15 @@
-
 const bedrock = require("bedrock-protocol");
 const express = require("express");
 const app = express();
 
 const PORT = process.env.PORT || 5000;
 
-// Host details for your server
-const SERVER_HOST = "mouthbrooder.aternos.host";
-const SERVER_PORT = 56328;
+// Host details using environment variables with fallbacks
+const SERVER_HOST = process.env.SERVER_HOST || "mouthbrooder.aternos.host";
+const SERVER_PORT = parseInt(process.env.SERVER_PORT) || 56328;
 const BOT_USERNAME = "AFK_Bot";
 
-// Simple web server to keep host online
+// Express web server for UptimeRobot monitoring
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -22,7 +21,7 @@ app.get("/", (req, res) => {
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>AFK Bot Dashboard</title>
       <style>
-        body { font-family: sans-serif; background: #0d1117; color: #c9d1d9; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        body { font-family: sans-serif; background: #0d1117; color: #c9d1d9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
         .card { background: #161b22; padding: 24px; border-radius: 8px; border: 1px solid #30363d; text-align: center; }
         h1 { color: #58a6ff; font-size: 20px; }
       </style>
@@ -45,7 +44,7 @@ app.listen(PORT, "0.0.0.0", () => {
 function createBot() {
   console.log(`[Bot] Connecting to ${SERVER_HOST}:${SERVER_PORT}...`);
 
-      const client = bedrock.createClient({
+  const client = bedrock.createClient({
     host: SERVER_HOST,
     port: SERVER_PORT,
     username: BOT_USERNAME,
@@ -55,6 +54,40 @@ function createBot() {
 
   client.on("spawn", () => {
     console.log("[Bot] Successfully connected and spawned in the world!");
+
+    // Anti-AFK Chat Spammer (Every 10 minutes)
+    setInterval(() => {
+      if (client) {
+        client.queue("text", {
+          type: "chat",
+          needs_translation: false,
+          source_name: client.username,
+          message: "Bot is keeping the server active!",
+        });
+      }
+    }, 600000);
+  });
+
+  // Auto-Respawn on Death
+  client.on("death", () => {
+    console.log("[Bot] Bot died! Attempting to respawn...");
+    client.queue("respawn", {
+      state: 0,
+    });
+  });
+
+  // Chat Commands & Railway Console Logging
+  client.on("text", (packet) => {
+    console.log(`[Chat Log] ${packet.source_name || "Server"}: ${packet.message}`);
+
+    if (packet.message === "!ping") {
+      client.queue("text", {
+        type: "chat",
+        needs_translation: false,
+        source_name: client.username,
+        message: "Pong! Bot is active.",
+      });
+    }
   });
 
   client.on("error", (err) => {
