@@ -55,6 +55,15 @@ function createBot() {
   client.on("spawn", () => {
     console.log("[Bot] Successfully connected and spawned in the world!");
 
+    // Lightweight Anti-AFK Ping
+    setInterval(() => {
+      if (client) {
+        client.queue("tick_sync", {
+          request_timestamp: BigInt(Date.now()),
+          response_timestamp: 0n,
+          });
+    }, 60000);
+    });
   client.on("error", (err) => {
     console.error("[Bot Error]", err.message || err);
   });
