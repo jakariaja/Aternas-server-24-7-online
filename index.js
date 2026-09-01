@@ -55,20 +55,66 @@ function createBot() {
   client.on("spawn", () => {
     console.log("[Bot] Successfully connected and spawned in the world!");
 
-    // Anti-AFK Chat Spammer (Every 10 minutes)
+    // Anti-AFK Movement: Move slightly every 2 minutes instead of sending chat
     setInterval(() => {
       if (client) {
-        client.queue("text", {
-          type: "chat",
-          needs_translation: false,
-          source_name: client.username,
-          xuid: "",
-          platform_chat_id: "",
-          filtered_message: "",
-          message: "Bot is keeping the server active!",
+        client.queue("player_auth_input", {
+          pitch: 0,
+          yaw: 0,
+          position: { x: 0, y: 0, z: 0 },
+          move_vector: { x: 0, z: 0 },
+          input_data: {
+            ascend: false,
+            descend: false,
+            north_jump: false,
+            jump_down: false,
+            sprint_down: false,
+            change_height: false,
+            jumping: false,
+            auto_jumping_in_water: false,
+            sneaking: false,
+            sneak_down: false,
+            up: false,
+            down: false,
+            left: false,
+            right: false,
+            up_left: false,
+            up_right: false,
+            want_up: false,
+            want_down: false,
+            want_down_slow: false,
+            want_up_slow: false,
+            sprinting: false,
+            ascend_block: false,
+            descend_block: false,
+            sneak_toggle_down: false,
+            persist_sneak: false,
+            start_sprinting: false,
+            stop_sprinting: false,
+            start_sneaking: false,
+            stop_sneaking: false,
+            start_swimming: false,
+            stop_swimming: false,
+            start_jumping: false,
+            start_gliding: false,
+            stop_gliding: false,
+            item_interact: false,
+            block_action: false,
+            item_using_arm: 0,
+          },
+          input_mode: "touch",
+          play_mode: "normal",
+          interaction_model: "touch",
+          gaze_direction: { x: 0, y: 0, z: 0 },
+          tick: 0n,
+          delta: { x: 0, y: 0, z: 0 },
+          transaction: null,
+          item_stack_request: null,
+          block_action: null,
+          analogue_move_vector: { x: 0, z: 0 },
         });
       }
-    }, 600000);
+    }, 120000); // Every 2 minutes
   });
 
   // Auto-Respawn on Death
@@ -79,24 +125,9 @@ function createBot() {
     });
   });
 
-  // Chat Commands & Railway Console Logging
+  // Log server chat without sending auto-replies
   client.on("text", (packet) => {
-    // Ignore messages sent by the bot itself to prevent infinite loops
-    if (packet.source_name === client.username) return;
-
     console.log(`[Chat Log] ${packet.source_name || "Server"}: ${packet.message}`);
-
-    if (packet.message === "!ping") {
-      client.queue("text", {
-        type: "chat",
-        needs_translation: false,
-        source_name: client.username,
-        xuid: "",
-        platform_chat_id: "",
-        filtered_message: "",
-        message: "Pong! Bot is active.",
-      });
-    }
   });
 
   client.on("error", (err) => {
