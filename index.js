@@ -128,8 +128,6 @@ function createBot() {
   // Log server chat without sending auto-replies
   client.on("text", (packet) => {
     console.log(`[Chat Log] ${packet.source_name || "Server"}: ${packet.message}`);
-  });
-
   client.on("error", (err) => {
     console.error("[Bot Error]", err.message || err);
   });
