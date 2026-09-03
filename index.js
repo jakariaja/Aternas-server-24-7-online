@@ -34,7 +34,7 @@ function createBot() {
     offline: true,
     skipPing: true,
     profilesFolder: null,
-    version: "1.21.0" // Forces compatible RakNet protocol handshake
+    version: "1.21.20" // Forces compatible RakNet protocol handshake
   });
 
   client.on("spawn", () => {
