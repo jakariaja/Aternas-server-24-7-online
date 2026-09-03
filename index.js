@@ -5,7 +5,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Host details using environment variables with fallbacks
-const SERVER_HOST = process.env.SERVER_HOST || "mouthbrooder.aternos.host";
+const SERVER_HOST = process.env.SERVER_HOST || "Jakaria20038.aternos.me";
 const SERVER_PORT = parseInt(process.env.SERVER_PORT) || 56328;
 const BOT_USERNAME = "AFK_Bot";
 
