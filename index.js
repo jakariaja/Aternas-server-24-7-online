@@ -4,7 +4,7 @@ const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-const SERVER_HOST = process.env.SERVER_HOST || "hagfish.aternos.host";
+const SERVER_HOST = process.env.SERVER_HOST || "dragonet.aternos.host";
 const SERVER_PORT = parseInt(process.env.SERVER_PORT) || 56328;
 const BOT_USERNAME = process.env.BOT_USERNAME || "AFK_Bot";
 
@@ -33,7 +33,8 @@ function createBot() {
     username: BOT_USERNAME,
     offline: true,
     skipPing: true,
-    profilesFolder: null
+    profilesFolder: null,
+    version: "1.21.0" // Forces compatible RakNet protocol handshake
   });
 
   client.on("spawn", () => {
