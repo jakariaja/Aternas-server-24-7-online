@@ -45,13 +45,14 @@ function createBot() {
   console.log(`[Bot] Connecting to ${SERVER_HOST}:${SERVER_PORT}...`);
 
   const client = bedrock.createClient({
-    host: SERVER_HOST,
-    port: SERVER_PORT,
-    username: BOT_USERNAME,
-    offline: true,
-    skipPing: true,
-  });
-
+  host: SERVER_HOST,
+  port: SERVER_PORT,
+  username: BOT_USERNAME,
+  offline: true,
+  skipPing: true,
+  version: '1.26.45.1'
+});
+  
   client.on("spawn", () => {
     console.log("[Bot] Successfully connected and spawned in the world!");
   });
