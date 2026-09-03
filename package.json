@@ -1,16 +1,12 @@
 {
   "name": "minecraft-afk-bot",
-  "version": "2.3",
-  "description": "Robust AFK bot for Minecraft servers with infinite uptime.",
+  "version": "2.3.0",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "node --check index.js"
+    "start": "node index.js"
   },
-  "author": "Lamgerr",
-  "license": "MIT",
   "dependencies": {
-    "express": "^4.18.1",
-    "bedrock-protocol": "^3.58.3"
+    "bedrock-protocol": "^1.28.0",
+    "express": "^4.18.2"
   }
 }
