@@ -11,6 +11,6 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.18.1",
-    "bedrock-protocol": "^1.26.0"
+    "bedrock-protocol": "^3.58.3"
   }
 }
