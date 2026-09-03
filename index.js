@@ -48,9 +48,10 @@ function createBot() {
   host: SERVER_HOST,
   port: SERVER_PORT,
   username: BOT_USERNAME,
-  offline: true,
+    offline: true,
   skipPing: true,
-});
+  version: 'latest',
+  });
   
   client.on("spawn", () => {
     console.log("[Bot] Successfully connected and spawned in the world!");
