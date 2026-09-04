@@ -34,7 +34,6 @@ function createBot() {
     offline: true,
     skipPing: true,
     profilesFolder: null,
-    version: "1.21.30"
   });
 
   client.on("spawn", () => {
