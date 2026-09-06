@@ -32,7 +32,7 @@ function createBot() {
     port: SERVER_PORT,
     username: BOT_USERNAME,
     offline: true,
-    version: "1.21.44",
+    version: "1.21.45",
     skipPing: true,
   });
 
